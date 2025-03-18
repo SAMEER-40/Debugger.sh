@@ -9,14 +9,15 @@
     <style>
         body { font-family: Arial, sans-serif; text-align: center; }
         svg { width: 100vw; height: 100vh; }
-        .lock { fill: orange; }  /* 🔒 Locks are Orange */
-        .thread { fill: steelblue; }  /* 🧵 Threads are Blue */
-        .deadlock { stroke: red !important; stroke-width: 3px !important; }  /* 🔴 Deadlock Highlight */
+        .lock { fill: orange; }  /* 🔒 Locks (Mutexes) */
+        .thread { fill: steelblue; }  /* 🧵 Threads */
+        .race { stroke: red !important; stroke-width: 3px !important; }  /* ⚠️ Race Condition Highlight */
+        .waiting { stroke-dasharray: 5,5; stroke-width: 2px; stroke: gray; }  /* ⏳ Threads Waiting for Lock */
         .label { font-size: 14px; fill: black; font-weight: bold; text-anchor: middle; }
     </style>
 </head>
 <body>
-    <h2>Concurrency Lock Graph</h2>
+    <h2>Concurrency Lock Graph (Threads & Mutexes)</h2>
     <svg></svg>
     
     <script>
@@ -49,26 +50,30 @@
                 .force("center", d3.forceCenter(width / 2, height / 2))
                 .force("collision", d3.forceCollide().radius(35));  // Avoids node overlap
 
-            // 🔗 Edges
+            // 🔗 Edges (Normal, Waiting, Race Condition)
             const link = svg.selectAll(".link")
                 .data(data.links)
                 .enter().append("line")
-                .attr("class", d => data.deadlocks && data.deadlocks.some(dl => dl[0] === d.source.id && dl[1] === d.target.id) ? "deadlock" : "link")
-                .style("stroke", "#999")
+                .attr("class", d => {
+                    if (d.type === "race_condition") return "race";  // ⚠️ Race Condition
+                    if (d.type === "waiting") return "waiting";  // ⏳ Waiting for Mutex
+                    return "link";
+                })
+                .style("stroke", d => d.type === "race_condition" ? "red" : "#999")
                 .style("stroke-width", 2);
 
-            // ⏱️ Edge Labels
+            // ⏱️ Edge Labels (Mutex Wait Times)
             const edgeLabels = svg.selectAll(".edge-label")
                 .data(data.links)
                 .enter().append("text")
                 .attr("class", "label")
-                .text(d => d.timestamp);
+                .text(d => d.timestamp ? `⏱️ ${d.timestamp}s` : "");
 
-            // 🟠🔵 Nodes
+            // 🟠🔵 Nodes (Threads & Locks)
             const node = svg.selectAll("circle")
                 .data(data.nodes)
                 .enter().append("circle")
-                .attr("r", 15)  // Bigger nodes
+                .attr("r", d => d.type === "thread" ? 15 : 12)  // Bigger for threads
                 .attr("class", d => d.type === "lock" ? "lock" : "thread")
                 .call(d3.drag()
                     .on("start", (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
