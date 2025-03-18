@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurrency Lock Graph</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; }
+        svg { width: 100vw; height: 100vh; }
+        .lock { fill: orange; }  /* 🔒 Locks are Orange */
+        .thread { fill: steelblue; }  /* 🧵 Threads are Blue */
+        .deadlock { stroke: red !important; stroke-width: 3px !important; }  /* 🔴 Deadlock Highlight */
+        .label { font-size: 14px; fill: black; font-weight: bold; text-anchor: middle; }
+    </style>
+</head>
+<body>
+    <h2>Concurrency Lock Graph</h2>
+    <svg></svg>
+    
+    <script>
+        const width = window.innerWidth, height = window.innerHeight;
+        const svg = d3.select("svg").attr("viewBox", `0 0 ${width} ${height}`).attr("preserveAspectRatio", "xMidYMid meet");
+        const socket = io("http://localhost:8080", { transports: ["websocket"] });
+
+        async function fetchGraph() {
+            try {
+                console.log("Fetching graph...");
+                const response = await fetch("http://127.0.0.1:8080/graph");
+                
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                
+                const data = await response.json();
+                console.log("Graph data received:", data);
+                
+                updateGraph(data);
+            } catch (error) {
+                console.error("Error fetching graph:", error);
+            }
+        }
+
+        function updateGraph(data) {
+            svg.selectAll("*").remove();
+
+            const simulation = d3.forceSimulation(data.nodes)
+                .force("link", d3.forceLink(data.links).id(d => d.id).distance(150))  // Increased spacing
+                .force("charge", d3.forceManyBody().strength(-500))  // Stronger repulsion to avoid overlap
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(35));  // Avoids node overlap
+
+            // 🔗 Edges
+            const link = svg.selectAll(".link")
+                .data(data.links)
+                .enter().append("line")
+                .attr("class", d => data.deadlocks && data.deadlocks.some(dl => dl[0] === d.source.id && dl[1] === d.target.id) ? "deadlock" : "link")
+                .style("stroke", "#999")
+                .style("stroke-width", 2);
+
+            // ⏱️ Edge Labels
+            const edgeLabels = svg.selectAll(".edge-label")
+                .data(data.links)
+                .enter().append("text")
+                .attr("class", "label")
+                .text(d => d.timestamp);
+
+            // 🟠🔵 Nodes
+            const node = svg.selectAll("circle")
+                .data(data.nodes)
+                .enter().append("circle")
+                .attr("r", 15)  // Bigger nodes
+                .attr("class", d => d.type === "lock" ? "lock" : "thread")
+                .call(d3.drag()
+                    .on("start", (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+                    .on("drag", (event, d) => { d.fx = event.x; d.fy = event.y; })
+                    .on("end", (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+                );
+
+            // 🏷 Node Labels
+            const nodeLabels = svg.selectAll(".node-label")
+                .data(data.nodes)
+                .enter().append("text")
+                .attr("class", "label")
+                .text(d => d.id);
+
+            simulation.on("tick", () => {
+                link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+
+                node.attr("cx", d => d.x).attr("cy", d => d.y);
+
+                nodeLabels.attr("x", d => d.x).attr("y", d => d.y - 20);  // Shifted above node
+
+                edgeLabels
+                    .attr("x", d => (d.source.x + d.target.x) / 2)
+                    .attr("y", d => (d.source.y + d.target.y) / 2 - 10);
+            });
+        }
+
+        socket.on("update_graph", data => updateGraph(data));
+
+        fetchGraph();
+    </script>
+</body>
+</html>

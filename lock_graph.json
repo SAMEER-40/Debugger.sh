@@ -1,0 +1,29 @@
+{
+    "nodes": [
+        {
+            "id": "0x63497f923040",
+            "type": "lock"
+        },
+        {
+            "id": "0x63497f923080",
+            "type": "lock"
+        },
+        {
+            "id": "Locking",
+            "type": "lock"
+        }
+    ],
+    "links": [
+        {
+            "source": "Locking",
+            "target": "0x63497f923040",
+            "timestamp": "[1742263554.069633315]"
+        },
+        {
+            "source": "Locking",
+            "target": "0x63497f923080",
+            "timestamp": "[1742263554.069639503]"
+        }
+    ],
+    "deadlocks": null
+}

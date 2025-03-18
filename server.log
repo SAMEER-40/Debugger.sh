@@ -1,0 +1,52 @@
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 138-836-316
+(8329) wsgi starting up on http://127.0.0.1:8080
+(8329) accepted ('127.0.0.1', 40816)
+(8329) accepted ('127.0.0.1', 40820)
+(8329) accepted ('127.0.0.1', 40826)
+127.0.0.1 - - [18/Mar/2025 02:05:59] "GET /graph HTTP/1.1" 200 661 0.001920
+127.0.0.1 - - [18/Mar/2025 02:06:42] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.022852
+(8329) accepted ('127.0.0.1', 54220)
+127.0.0.1 - - [18/Mar/2025 02:06:44] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.031927
+(8329) accepted ('127.0.0.1', 54234)
+127.0.0.1 - - [18/Mar/2025 02:07:29] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.006376
+127.0.0.1 - - [18/Mar/2025 02:07:31] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.008156
+(8329) accepted ('127.0.0.1', 43640)
+(8329) accepted ('127.0.0.1', 43648)
+127.0.0.1 - - [18/Mar/2025 02:08:16] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.011331
+(8329) accepted ('127.0.0.1', 48266)
+127.0.0.1 - - [18/Mar/2025 02:08:18] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.004680
+(8329) accepted ('127.0.0.1', 48282)
+(8329) accepted ('127.0.0.1', 35500)
+127.0.0.1 - - [18/Mar/2025 02:08:21] "GET /graph HTTP/1.1" 200 661 0.001070
+(8329) accepted ('127.0.0.1', 35508)
+127.0.0.1 - - [18/Mar/2025 02:08:23] "GET /graph HTTP/1.1" 200 661 0.001659
+127.0.0.1 - - [18/Mar/2025 02:09:03] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.147851
+127.0.0.1 - - [18/Mar/2025 02:09:05] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.028535
+127.0.0.1 - - [18/Mar/2025 02:09:06] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.072073
+(8329) accepted ('127.0.0.1', 35484)
+127.0.0.1 - - [18/Mar/2025 02:09:08] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.007846
+(8329) accepted ('127.0.0.1', 55804)
+127.0.0.1 - - [18/Mar/2025 02:09:51] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.006724
+(8329) accepted ('127.0.0.1', 44406)
+127.0.0.1 - - [18/Mar/2025 02:09:55] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.013149
+(8329) accepted ('127.0.0.1', 44420)
+127.0.0.1 - - [18/Mar/2025 02:10:37] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.020481
+(8329) accepted ('127.0.0.1', 38988)
+127.0.0.1 - - [18/Mar/2025 02:10:42] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.016880
+(8329) accepted ('127.0.0.1', 51092)
+127.0.0.1 - - [18/Mar/2025 02:11:24] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.027676
+(8329) accepted ('127.0.0.1', 42654)
+127.0.0.1 - - [18/Mar/2025 02:11:29] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.013494
+(8329) accepted ('127.0.0.1', 45290)
+127.0.0.1 - - [18/Mar/2025 02:12:11] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.187118
+(8329) accepted ('127.0.0.1', 57044)
+127.0.0.1 - - [18/Mar/2025 02:12:17] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.616746
+(8329) accepted ('127.0.0.1', 57054)
+(8329) accepted ('127.0.0.1', 45810)
+(8329) accepted ('127.0.0.1', 45814)
+127.0.0.1 - - [18/Mar/2025 02:12:31] "GET /graph HTTP/1.1" 200 661 0.002609
+127.0.0.1 - - [18/Mar/2025 02:12:58] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.023033
+127.0.0.1 - - [18/Mar/2025 02:13:03] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.037766
+127.0.0.1 - - [18/Mar/2025 02:13:16] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.012454
