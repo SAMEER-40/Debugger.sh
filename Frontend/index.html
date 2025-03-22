@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurrency Lock Graph</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            height: 100vh;
+        }
+
+        #main {
+            flex: 1;
+            position: relative;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .tooltip {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            display: none;
+        }
+
+        #ai-insights {
+            width: 100%;
+            background: #222;
+            color: white;
+            border: 1px solid #555;
+            padding: 5px;
+            resize: vertical;
+        }
+
+        /* Sidebar Styling */
+        #sidebar {
+            width: 300px;
+            background: #1e1e1e;
+            color: white;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #logs {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 10px;
+        }
+
+        .log-entry {
+            padding: 5px;
+            border-bottom: 1px solid gray;
+            font-size: 14px;
+        }
+
+        .log-warning {
+            color: red;
+            font-weight: bold;
+        }
+
+        .log-info {
+            color: lightblue;
+        }
+
+        .timestamp {
+            font-size: 12px;
+            color: gray;
+        }
+
+        .suggestions {
+            background: #333;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        /* Graph Styling */
+        .lock {
+            fill: orange;
+        }
+
+        .thread {
+            fill: steelblue;
+        }
+
+        .race {
+            stroke: red !important;
+            stroke-width: 3px !important;
+        }
+
+        .waiting {
+            stroke-dasharray: 5, 5;
+            stroke-width: 2px;
+            stroke: gray;
+        }
+
+        .label {
+            font-size: 14px;
+            fill: black;
+            font-weight: bold;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Sidebar for AI Suggestions & Logs -->
+    <!-- AI Insights Textbox -->
+
+
+    <div id="sidebar">
+        <h3>🔍 AI Log Analysis</h3>
+        <div id="logs"></div>
+        <h4>💡 AI Suggestions</h4>
+        <textarea id="ai-insights" rows="4"
+            style="width: 95%; background: #222; color: white; border: 1px solid #555; padding: 5px;"
+            readonly>Enforce Lock Ordering – Always acquire mutexes in a fixed order (e.g., Mutex 0 → Mutex 1 → Mutex 2) to prevent circular waits.
+
+            Use Try-Lock with Timeout – Replace pthread_mutex_lock() with pthread_mutex_trylock() to avoid indefinite blocking.
+            
+            Detect and Break Cycles – Implement a watchdog thread to detect deadlocks and release locks if necessary.
+            
+            Use a Single Global Lock – Instead of multiple mutexes, use a single lock to eliminate circular dependencies.
+            
+            Introduce Backoff and Retry – If a thread fails to acquire all required locks, release them and retry after a short delay.</textarea>
+        <div id="suggestions" class="suggestions">Waiting for logs...</div>
+    </div>
+
+    <!-- Main Graph Section -->
+    <div id="main">
+        <h2 style="text-align: center;">Concurrency Lock Graph (Threads & Mutexes)</h2>
+        <svg></svg>
+        <div class="tooltip" id="tooltip"></div>
+    </div>
+
+    <script>
+        const width = window.innerWidth - 300, height = window.innerHeight;
+        const svg = d3.select("svg").attr("viewBox", `0 0 ${width} ${height}`).attr("preserveAspectRatio", "xMidYMid meet");
+        const socket = io("http://localhost:8080", { transports: ["websocket"] });
+
+        async function fetchGraph() {
+            try {
+                console.log("Fetching graph...");
+                const response = await fetch("http://127.0.0.1:8080/graph");
+                if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+
+                const data = await response.json();
+                console.log("Graph data received:", data);
+
+                updateGraph(data);
+                analyzeWithAI(data);
+            } catch (error) {
+                console.error("Error fetching graph:", error);
+            }
+        }
+
+        function updateGraph(data) {
+            svg.selectAll("*").remove();
+
+            const simulation = d3.forceSimulation(data.nodes)
+                .force("link", d3.forceLink().links(data.links).id(d => d.id).distance(150))
+                .force("charge", d3.forceManyBody().strength(-500))
+                .force("center", d3.forceCenter(width / 2, height / 2))
+                .force("collision", d3.forceCollide().radius(35));
+
+
+            const link = svg.selectAll(".link")
+                .data(data.links)
+                .enter().append("line")
+                .attr("class", d => d.type === "race_condition" ? "race" : (d.type === "waiting" ? "waiting" : "link"))
+                .style("stroke", d => d.type === "race_condition" ? "red" : "#999")
+                .style("stroke-width", 2);
+
+            const node = svg.selectAll("circle")
+                .data(data.nodes)
+                .enter().append("circle")
+                .attr("r", d => d.type === "thread" ? 15 : 12)
+                .attr("class", d => d.type === "lock" ? "lock" : "thread")
+                .call(d3.drag()
+                    .on("start", (event, d) => { if (!event.active) simulation.alphaTarget(0.3).restart(); d.fx = d.x; d.fy = d.y; })
+                    .on("drag", (event, d) => { d.fx = event.x; d.fy = event.y; })
+                    .on("end", (event, d) => { if (!event.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; })
+                )
+                .on("mouseover", (event, d) => {
+                    const tooltip = document.getElementById("tooltip");
+                    tooltip.style.display = "block";
+                    tooltip.style.left = `${event.pageX + 10}px`;
+                    tooltip.style.top = `${event.pageY + 10}px`;
+                    tooltip.innerHTML = `<strong>${d.id}</strong><br>Type: ${d.type}`;
+                })
+                .on("mouseout", () => {
+                    document.getElementById("tooltip").style.display = "none";
+                });
+
+            const nodeLabels = svg.selectAll(".node-label")
+                .data(data.nodes)
+                .enter().append("text")
+                .attr("class", "label")
+                .text(d => d.id);
+
+            simulation.on("tick", () => {
+                link.attr("x1", d => d.source.x).attr("y1", d => d.source.y)
+                    .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
+
+                node.attr("cx", d => d.x).attr("cy", d => d.y);
+                nodeLabels.attr("x", d => d.x).attr("y", d => d.y - 20);
+            });
+
+            analyzeLogs(data);
+        }
+
+        function analyzeLogs(data) {
+            const logsContainer = document.getElementById("logs");
+            const suggestionsContainer = document.getElementById("suggestions");
+
+            logsContainer.innerHTML = "";
+            let detectedIssues = [];
+
+            // Get current time in HH:MM:SS format
+            function getTimestamp() {
+                return new Date().toLocaleTimeString();
+            }
+
+            data.links.forEach(link => {
+                const logEntry = document.createElement("div");
+                logEntry.classList.add("log-entry");
+
+                const timestamp = `<span class="timestamp">${getTimestamp()}</span>`;
+
+                if (link.type === "race_condition") {
+                    logEntry.innerHTML = `🕒 ${timestamp} | ⚠️ <span class="log-warning">Race Condition</span>: ${link.source.id} & ${link.target.id}`;
+                    detectedIssues.push(`(${getTimestamp()}) Race condition detected. Consider using locks or atomic variables.`);
+                } else if (link.type === "waiting") {
+                    logEntry.innerHTML = `🕒 ${timestamp} | ⏳ <span class="log-info">Waiting</span>: ${link.source.id} is waiting for ${link.target.id}`;
+                } else {
+                    logEntry.innerHTML = `🕒 ${timestamp} | ✅ <span class="log-info">Lock Acquired</span>: ${link.source.id} → ${link.target.id}`;
+                }
+
+                logsContainer.appendChild(logEntry);
+            });
+
+            suggestionsContainer.innerHTML = detectedIssues.length > 0
+                ? detectedIssues.map(issue => `<p>💡 ${issue}</p>`).join("")
+                : "<p>✅ No issues detected!</p>";
+        }
+
+
+        socket.on("update_graph", data => updateGraph(data));
+
+        fetchGraph();
+
+        async function analyzeWithAI(graphData) {
+            try {
+                console.log("Sending data for AI analysis...");
+                const response = await fetch("http://127.0.0.1:5001/analyze", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(graphData),
+                });
+
+                if (!response.ok) throw new Error(`AI API error: ${response.status}`);
+
+                const aiResult = await response.json();
+                console.log("AI Analysis Result:", aiResult);
+
+                // Update AI insights <textarea>
+                document.getElementById("ai-insights").value = aiResult.ai_suggestion;
+
+                // Update AI suggestions <div>
+                document.getElementById("suggestions").innerHTML = `<b>🔹 AI Suggestions:</b> <br> ${aiResult.ai_suggestion}`;
+                document.getElementById("ai-insights").value = aiResult.ai_suggestion || "No AI insights available.";
+
+            } catch (error) {
+                console.error("Error analyzing with AI:", error);
+                document.getElementById("suggestions").innerHTML = `<b style="color:red;">❌ AI Analysis Failed</b>`;
+            }
+        }
+
+    </script>
+</body>
+
+</html>

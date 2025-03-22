@@ -1,0 +1,26 @@
+{
+    "nodes": [
+        {"id": "0", "type": "thread"},
+        {"id": "1", "type": "thread"},
+        {"id": "2", "type": "thread"},
+        {"id": "Mutex 0", "type": "lock"},
+        {"id": "Mutex 1", "type": "lock"},
+        {"id": "Mutex 2", "type": "lock"}
+    ],
+    "links": [
+        {"source": "0", "target": "Mutex 0"},
+        {"source": "1", "target": "Mutex 1"},
+        {"source": "2", "target": "Mutex 2"},
+        {"source": "Mutex 0", "target": "1"},
+        {"source": "Mutex 1", "target": "2"},
+        {"source": "Mutex 2", "target": "0"}
+    ],
+    "deadlocks": [
+        {"source": "0", "target": "Mutex 0"},
+        {"source": "Mutex 0", "target": "1"},
+        {"source": "1", "target": "Mutex 1"},
+        {"source": "Mutex 1", "target": "2"},
+        {"source": "2", "target": "Mutex 2"},
+        {"source": "Mutex 2", "target": "0"}
+    ]
+}
