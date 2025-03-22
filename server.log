@@ -2357,3 +2357,366 @@ Traceback (most recent call last):
     print("Client connected:", request.sid)
                                ^^^^^^^
 NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:11:49] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.079967
+(3820) accepted ('127.0.0.1', 36310)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:12:36] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.012857
+(3820) accepted ('127.0.0.1', 47916)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:13:22] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.008008
+(3820) accepted ('127.0.0.1', 41114)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:14:09] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.006928
+(3820) accepted ('127.0.0.1', 56886)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:14:56] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.012411
+(3820) accepted ('127.0.0.1', 56278)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:15:43] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.019428
+(3820) accepted ('127.0.0.1', 51874)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:16:30] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.006239
+(3820) accepted ('127.0.0.1', 40564)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:17:17] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.030090
+(3820) accepted ('127.0.0.1', 59718)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:18:04] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.025367
+(3820) accepted ('127.0.0.1', 37852)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:18:51] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.016835
+(3820) accepted ('127.0.0.1', 48942)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined
+127.0.0.1 - - [22/Mar/2025 10:19:38] "GET /socket.io/?EIO=4&transport=websocket HTTP/1.1" 200 0 45.004188
+(3820) accepted ('127.0.0.1', 37452)
+message handler error
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 831, in _handle_event
+    ret = handler(auth)
+          ^^^^^^^^^^^^^
+TypeError: handle_connect() takes 0 positional arguments but 1 was given
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/engineio/server.py", line 450, in run_handler
+    return self.handlers[event](*args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 652, in _handle_eio_message
+    self._handle_connect(eio_sid, pkt.namespace, pkt.data)
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 538, in _handle_connect
+    success = self._trigger_event(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/socketio/server.py", line 617, in _trigger_event
+    return handler(*args)
+           ^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 292, in _handler
+    return self._handle_event(handler, message, real_ns, sid,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/myenv/lib/python3.12/site-packages/flask_socketio/__init__.py", line 833, in _handle_event
+    ret = handler()
+          ^^^^^^^^^
+  File "/home/SaM/Desktop/concurrency-debugger/server.py", line 35, in handle_connect
+    print("Client connected:", request.sid)
+                               ^^^^^^^
+NameError: name 'request' is not defined

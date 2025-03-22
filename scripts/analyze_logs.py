@@ -4,7 +4,7 @@ import openai  # If using OpenAI API
 
 app = Flask(__name__)
 
-openai.api_key = "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"
+openai.api_key = 
 
 @app.route("/analyze", methods=["POST"])
 def analyze_graph():
